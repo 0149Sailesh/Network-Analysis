@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="./NA assignment/Styles/conversion.css">
+    <style>
+        body{
+          background-image: url(./1back.jpg);
+          background-repeat: no-repeat;
+          background-size: cover;
+
+        }
+      
+      </style>
+    <title>ABCD Parameter Conversion</title>
+</head>
+<body>
+  <div class="head">
+    ABCD-PARAMETERS
+   </div>
+   
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-10 col-md-8 col-lg-6">
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">A</label>
+            <div class="col-sm-10">
+              <input type="number" class="col-sm-2 form-control" id="ar" placeholder="Re">
+              <input type="number" class="col-sm-2 form-control" id="ai" placeholder="Im">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">B</label>
+            <div class="col-sm-10">
+                <input type="number" class="col-sm-2 form-control" id="br" placeholder="Re">
+                <input type="number" class="col-sm-2 form-control" id="bi" placeholder="Im">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">C</label>
+            <div class="col-sm-10">
+                <input type="number" class="col-sm-2 form-control" id="cr" placeholder="Re">
+                <input type="number" class="col-sm-2 form-control" id="ci" placeholder="Im">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">D</label>
+            <div class="col-sm-10">
+                <input type="number" class="col-sm-2 form-control" id="dr" placeholder="Re">
+                <input type="number" class="col-sm-2 form-control" id="di" placeholder="Im">
+            </div>
+          </div>
+          <fieldset class="form-group">
+            <div class="row">
+              <legend class="col-form-label col-sm-2 pt-0">Parameters</legend>
+              <div class="form-group col-md-4">
+                
+                <select id="inputState" class="form-control">
+                  <option value="z">Z Parameters</option>
+                  <option value="h">H Parameters</option>
+                  <option value="y">Y Parameters</option>
+                </select>
+          </fieldset>
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-primary" onclick="hi()">Submit</button>
+              <!-- Button trigger modal -->
+  
+            </div>
+            <br>
+            <br>
+            <ol id="result">
+
+            </ol>
+            
+          </div>
+    </div>
+   
+  </div>
+    <script src="https://unpkg.com/mathjs@8.0.0/lib/browser/math.js"></script>
+    <script>
+        var result=document.getElementById("result");
+        function hi(){
+        var a=math.complex(document.getElementById("ar").value,document.getElementById("ai").value);
+        var b=math.complex(document.getElementById("br").value,document.getElementById("bi").value);
+        var c=math.complex(document.getElementById("cr").value,document.getElementById("ci").value);
+        var d=math.complex(document.getElementById("dr").value,document.getElementById("di").value);
+        var select=document.getElementById("inputState");
+        if(select.value=="h"){
+            result.innerHTML="";
+            var h11=math.divide(b,d);
+            var w1=math.subtract(math.multiply(a,d),math.multiply(b,c));
+            var h12=math.divide(w1,d);
+            var h21=math.divide(-1,d);
+            var h22=math.divide(c,d);
+
+            var x = document.createElement("LI");
+            var t = document.createTextNode("h11 : "+h11);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("h12 : "+h12);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("h21 : "+h21);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("h22 : "+h22);
+            x.appendChild(t);
+            result.appendChild(x);
+        }
+        if(select.value=="y"){
+            result.innerHTML="";
+            var y11=math.divide(d,b);
+            var w2=math.subtract(math.multiply(b,c),math.multiply(a,d));
+            var y12=math.divide(w2,b);
+            var y21=math.divide(-1,b);
+            var y22=math.divide(a,b);
+
+            var x = document.createElement("LI");
+            var t = document.createTextNode("Y11 : "+y11);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("Y12 : "+y12);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("Y21 : "+y21);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("Y22 : "+y22);
+            x.appendChild(t);
+            result.appendChild(x);
+
+        }
+        if(select.value=="z"){
+            result.innerHTML="";
+            var z11=math.divide(a,c);
+            var w1=math.subtract(math.multiply(a,d),math.multiply(b,c));
+            var z12=math.divide(w1,c);
+            var z21=math.divide(1,c);
+            var z22=math.divide(d,c);
+
+            var x = document.createElement("LI");
+            var t = document.createTextNode("Z11 : "+z11);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("Z12 : "+z12);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("Z21 : "+z21);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("Z22 : "+z22);
+            x.appendChild(t);
+            result.appendChild(x);
+        }
+    }
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    
+</body>
+</html>

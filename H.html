@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="./NA assignment/Styles/conversion.css">
+    <style>
+        body{
+          background-image: url(./1back.jpg);
+          background-repeat: no-repeat;
+          background-size: cover;
+
+        }
+      
+      </style>
+    <title>2 Port Parameter Conversion</title>
+</head>
+<body>
+  <div class="head">
+    H-PARAMETERS
+   </div>
+   
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-10 col-md-8 col-lg-6">
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">h11</label>
+            <div class="col-sm-10">
+              <input type="number" class="col-sm-2 form-control" id="h11r" placeholder="Re">
+              <input type="number" class="col-sm-2 form-control" id="h11i" placeholder="Im">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">h12</label>
+            <div class="col-sm-10">
+                <input type="number" class="col-sm-2 form-control" id="h12r" placeholder="Re">
+                <input type="number" class="col-sm-2 form-control" id="h12i" placeholder="Im">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">h21</label>
+            <div class="col-sm-10">
+                <input type="number" class="col-sm-2 form-control" id="h21r" placeholder="Re">
+                <input type="number" class="col-sm-2 form-control" id="h21i" placeholder="Im">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">h22</label>
+            <div class="col-sm-10">
+                <input type="number" class="col-sm-2 form-control" id="h22r" placeholder="Re">
+                <input type="number" class="col-sm-2 form-control" id="h22i" placeholder="Im">
+            </div>
+          </div>
+          <fieldset class="form-group">
+            <div class="row">
+              <legend class="col-form-label col-sm-2 pt-0">Parameters</legend>
+              <div class="form-group col-md-4">
+                
+                <select id="inputState" class="form-control">
+                  <option value="z">Z Parameters</option>
+                  <option value="abcd">ABCD Parameters</option>
+                  <option value="y">Y Parameters</option>
+                </select>
+          </fieldset>
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-primary" onclick="hi()">Submit</button>
+              <!-- Button trigger modal -->
+  
+            </div>
+            <br>
+            <br>
+            <ol id="result">
+
+            </ol>
+            
+          </div>
+    </div>
+   
+  </div>
+    <script src="https://unpkg.com/mathjs@8.0.0/lib/browser/math.js"></script>
+
+    <script>
+    var result=document.getElementById("result");
+        function hi(){
+        var h11=math.complex(document.getElementById("h11r").value,document.getElementById("h11i").value);
+        var h12=math.complex(document.getElementById("h12r").value,document.getElementById("h12i").value);
+        var h21=math.complex(document.getElementById("h21r").value,document.getElementById("h21i").value);
+        var h22=math.complex(document.getElementById("h22r").value,document.getElementById("h22i").value);
+        var select=document.getElementById("inputState");
+        if(select.value=="abcd"){
+            result.innerHTML="";
+            var w1=math.subtract(math.multiply(h12,h21),math.multiply(h11,h22));
+            var A=math.divide(w1,h21);
+            var B=math.divide(math.multiply(-1,h11),h21);
+            var C=math.divide(math.multiply(-1,h22),h21);
+            var D=math.divide(1,h21);
+
+            var x = document.createElement("LI");
+            var t = document.createTextNode("A : "+A);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("B : "+B);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("C : "+C);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("D : "+D);
+            x.appendChild(t);
+            result.appendChild(x);
+        }
+        if(select.value=="z"){
+            result.innerHTML="";
+            var w2=math.subtract(math.multiply(h11,h22),math.multiply(h12,h21));
+            var z11=math.divide(w2,h22);
+            var z12=math.divide(h12,h22);
+            var z21=math.divide(math.multiply(-1,h21),h22);
+            var z22=math.divide(1,h22);
+
+            var x = document.createElement("LI");
+            var t = document.createTextNode("Z11 : "+z11);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("Z12 : "+z12);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("Z21 : "+z21);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("Z22 : "+z22);
+            x.appendChild(t);
+            result.appendChild(x);
+        }
+        if(select.value=="y"){
+            result.innerHTML="";
+            var y11=math.divide(1,h11);
+            var y12=math.divide(math.multiply(-1,h12),h11);
+            var y21=math.divide(h21,h11);
+            var w2=math.subtract(math.multiply(h11,h22),math.multiply(h12,h21));
+            var y22=math.divide(w2,h11);
+
+            var x = document.createElement("LI");
+            var t = document.createTextNode("Y11 : "+y11);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("Y12 : "+y12);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("Y21 : "+y21);
+            x.appendChild(t);
+            result.appendChild(x);
+            var x = document.createElement("LI");
+            var t = document.createTextNode("Y22 : "+y22);
+            x.appendChild(t);
+            result.appendChild(x);
+        }
+        }
+
+    </script>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    
+</body>
+</html>

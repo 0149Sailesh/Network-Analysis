@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./NA assignment/Styles/style2.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<style>
+  body{
+    background-image: url(./1back.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+  }
+
+</style>
+       <title>Document</title>
+    </head>
+
+    <body>
+        <img src=T.JPG class="picture">
+        
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#GraphModal">
+            <img src=info.png id="info">
+          </button>
+    
+        <div class="values">
+        <input type="text"placeholder="Enter the Value of R1" id="R1" >
+        <br>
+        <input type="text"placeholder="Enter the Value of R2" id="R2" >
+        <br>
+        <input type="text"placeholder="Enter the Value of Attenuation" id="Attenuation" >
+        <select id="units">
+            <option value="dB">dB</option>
+            <option value="nepers">nepers</option>
+        </select>
+        <button onclick="calc()">Calculate</button>
+        </div>
+
+<div class="Results">
+  Ra:<p id="Ra"></p>
+  Rb:<p id="Rb"></p>
+  Rc:<p id="Rc"></p>
+
+</div>
+
+<div class="modal fade" id="GraphModal" tabindex="-1"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">MATLAB SIMULATIONS</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-body">
+            <img src="Tcode.JPG" class="modal_content"> 
+            <img src="Tgraph.JPG" class="modal_content">
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+    <script>
+
+function calc()
+{
+ 
+
+    var R1=document.getElementById("R1").value;
+    var R2=document.getElementById("R2").value;
+    var Ra=document.getElementById("Ra");
+    var Rb=document.getElementById("Rb");
+    var Rc=document.getElementById("Rc"); 
+    var attenuation= document.getElementById("Attenuation").value;
+    var units= document.getElementById("units").value;
+
+    console.log(units);
+
+    if(units=="dB")
+    {
+      var d=attenuation/20;
+      var N=Math.pow(10,d);
+
+      ra= R1*((Math.pow(N,2)+1)/((Math.pow(N,2)-1))) - 2 * Math.pow(R1*R2,0.5)*(N/(Math.pow(N,2)-1));
+      rb=  2 * Math.pow(R1*R2,0.5)*(N/(Math.pow(N,2)-1));
+      rc= R2*((Math.pow(N,2)+1)/((Math.pow(N,2)-1))) - 2 * Math.pow(R1*R2,0.5)*(N/(Math.pow(N,2)-1));
+
+      Ra.innerHTML=ra;
+      Rb.innerHTML=rb;
+      Rc.innerHTML=rc;
+
+     
+    }
+    if(units=="nepers")
+    {
+
+    }
+}
+
+
+    </script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>    
+</body>
+    </html>

@@ -1,0 +1,36 @@
+body{
+    
+    background-repeat: no-repeat;
+    background-image: url(../back.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+#info
+{
+    width: 30px;
+    height:30px;
+}
+.modal_content
+{
+    width: 400px;
+    height: auto;
+}
+.picture{
+
+    width:600px;
+    height:300px;
+    align-self: center;
+    margin-top: 100px;
+    margin-left: 400px;
+}
+.values
+{
+    margin-top: 40px;
+    margin-left: 600px;
+}
+.Results{
+margin-left: 600px;
+margin-top: 20px;
+}
