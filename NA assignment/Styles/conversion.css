@@ -2,10 +2,13 @@
     box-sizing: border-box;
 }
 .container{
-    transform: translateY(150px);
+    transform: translateY(80px);
 }
 .head{
     text-align: center;
     font-size: 50px;
-    margin-top: 20px;
+    margin-top: 10px;
+}
+img{
+    box-shadow: 10px 10px 5px grey;
 }
